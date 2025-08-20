@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCA Notes Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background-color: var(--primary-color);
+            transition: background-color 0.3s ease;
+        }
+        .navbar.scrolled {
+            background-color: rgba(52, 152, 219, 0.9);
+        }
+        .hero {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        #heroCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            perspective: 1000px;
+        }
+        .card:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .card-body {
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover .card-body {
+            transform: translateZ(20px);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">LearnBCA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#semesters">Semesters</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <canvas id="heroCanvas"></canvas>
+        <div class="container hero-content">
+            <h1 class="display-4 floating">Welcome to LearnBCA</h1>
+            <p class="lead">Access comprehensive notes for all BCA semesters</p>
+        </div>
+    </header>
+
+    <!-- Add AOS CSS in <head> -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<section id="semesters" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold" data-aos="fade-down">📘 BCA Semesters</h2>
+    
+    <!-- Accordion Wrapper -->
+    <div class="row g-4 accordion" id="semestersAccordion">
+
+      <!-- Semester 1 -->
+      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="card semester-card shadow-lg border-0 h-100 text-center p-3">
+          <div class="semester-icon mb-3"><i class="fas fa-laptop-code"></i></div>
+          <h5 class="card-title">Semester 1</h5>
+          <p class="card-text">Access notes for Semester 1 subjects.</p>
+          <button class="btn btn-gradient" data-bs-toggle="collapse" data-bs-target="#notes1">View Notes</button>
+          <div class="collapse mt-3" id="notes1" data-bs-parent="#semestersAccordion">
+            <ul class="list-group text-start">
+              <li class="list-group-item">Programming in C <a href="notes/sem1-c.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+              <li class="list-group-item">Mathematics <a href="notes/sem1-maths.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+              <li class="list-group-item">Computer Fundamentals <a href="notes/sem1-cf.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Semester 2 -->
+      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+        <div class="card semester-card shadow-lg border-0 h-100 text-center p-3">
+          <div class="semester-icon mb-3"><i class="fas fa-database"></i></div>
+          <h5 class="card-title">Semester 2</h5>
+          <p class="card-text">Access notes for Semester 2 subjects.</p>
+          <button class="btn btn-gradient" data-bs-toggle="collapse" data-bs-target="#notes2">View Notes</button>
+          <div class="collapse mt-3" id="notes2" data-bs-parent="#semestersAccordion">
+            <ul class="list-group text-start">
+              <li class="list-group-item">DBMS <a href="notes/sem2-dbms.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+              <li class="list-group-item">Data Structures <a href="notes/sem2-ds.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+              <li class="list-group-item">Operating Systems <a href="notes/sem2-os.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Semester 3 -->
+      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+        <div class="card semester-card shadow-lg border-0 h-100 text-center p-3">
+          <div class="semester-icon mb-3"><i class="fas fa-network-wired"></i></div>
+          <h5 class="card-title">Semester 3</h5>
+          <p class="card-text">Access notes for Semester 3 subjects.</p>
+          <button class="btn btn-gradient" data-bs-toggle="collapse" data-bs-target="#notes3">View Notes</button>
+          <div class="collapse mt-3" id="notes3" data-bs-parent="#semestersAccordion">
+            <ul class="list-group text-start">
+              <li class="list-group-item">Networking <a href="notes/sem3-net.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+              <li class="list-group-item">Java Programming <a href="notes/sem3-java.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+              <li class="list-group-item">Software Engineering <a href="notes/sem3-se.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Semester 4 -->
+      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="400">
+        <div class="card semester-card shadow-lg border-0 h-100 text-center p-3">
+          <div class="semester-icon mb-3"><i class="fas fa-code"></i></div>
+          <h5 class="card-title">Semester 4</h5>
+          <p class="card-text">Access notes for Semester 4 subjects.</p>
+          <button class="btn btn-gradient" data-bs-toggle="collapse" data-bs-target="#notes4">View Notes</button>
+          <div class="collapse mt-3" id="notes4" data-bs-parent="#semestersAccordion">
+            <ul class="list-group text-start">
+              <li class="list-group-item">Web Technologies <a href="notes/sem4-web.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+              <li class="list-group-item">Python Programming <a href="notes/sem4-python.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+              <li class="list-group-item">Computer Graphics <a href="notes/sem4-cg.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Semester 5 -->
+      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="500">
+        <div class="card semester-card shadow-lg border-0 h-100 text-center p-3">
+          <div class="semester-icon mb-3"><i class="fas fa-cloud"></i></div>
+          <h5 class="card-title">Semester 5</h5>
+          <p class="card-text">Access notes for Semester 5 subjects.</p>
+          <button class="btn btn-gradient" data-bs-toggle="collapse" data-bs-target="#notes5">View Notes</button>
+          <div class="collapse mt-3" id="notes5" data-bs-parent="#semestersAccordion">
+            <ul class="list-group text-start">
+              <li class="list-group-item">Cloud Computing <a href="notes/sem5-cloud.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+              <li class="list-group-item">AI & ML Basics <a href="notes/sem5-aiml.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+              <li class="list-group-item">Cyber Security <a href="notes/sem5-cyber.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Semester 6 -->
+      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="600">
+        <div class="card semester-card shadow-lg border-0 h-100 text-center p-3">
+          <div class="semester-icon mb-3"><i class="fas fa-project-diagram"></i></div>
+          <h5 class="card-title">Semester 6</h5>
+          <p class="card-text">Access notes for Semester 6 subjects.</p>
+          <button class="btn btn-gradient" data-bs-toggle="collapse" data-bs-target="#notes6">View Notes</button>
+          <div class="collapse mt-3" id="notes6" data-bs-parent="#semestersAccordion">
+            <ul class="list-group text-start">
+              <li class="list-group-item">Project Work <a href="notes/sem6-project.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+              <li class="list-group-item">Advanced Java <a href="notes/sem6-advjava.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+              <li class="list-group-item">Data Analytics <a href="notes/sem6-da.pdf" class="btn btn-sm btn-primary float-end" download>Download</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- AOS JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 900, once: true });
+</script>
+
+<!-- Font Awesome Icons -->
+<script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
+
+<style>
+  .btn-gradient {
+    background: linear-gradient(45deg, #007bff, #00c6ff);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 25px;
+    transition: 0.3s;
+  }
+  .btn-gradient:hover {
+    background: linear-gradient(45deg, #0056b3, #0084ff);
+    transform: scale(1.05);
+  }
+  .semester-card {
+    border-radius: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .semester-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.2);
+  }
+  .semester-icon {
+    font-size: 40px;
+    color: #007bff;
+  }
+</style>
+
+
+
+   <!-- AOS Library CSS -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<section id="about" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-4" data-aos="fade-down" data-aos-duration="1200">
+      About <span class="text-primary">BCA Notes Hub</span>
+    </h2>
+    <div class="row align-items-center">
+      
+      <!-- Left side: Image -->
+      <div class="col-md-6 text-center" data-aos="fade-right" data-aos-duration="1200">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
+             alt="BCA Notes" class="img-fluid rounded-3 shadow-lg" style="max-width: 80%;">
+      </div>
+
+      <!-- Right side: Content -->
+      <div class="col-md-6" data-aos="fade-left" data-aos-duration="1200">
+        <p class="lead">
+          <strong>BCA Notes Hub</strong> is your one-stop destination for 
+          <span class="text-primary fw-bold">comprehensive notes</span>, study materials, 
+          and resources tailored for Bachelor of Computer Applications students.
+        </p>
+        <p>
+          Our mission is to simplify your learning journey by providing 
+          <span class="fw-bold">well-structured</span> and 
+          <span class="fw-bold">easy-to-understand</span> notes, ensuring you excel in academics 
+          and build a strong foundation for your career in IT.
+        </p>
+        <button class="btn btn-primary btn-lg shadow mt-3" data-aos="zoom-in" data-aos-delay="400">
+          Explore Notes 🚀
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AOS Library JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
+   <!-- AOS CSS -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<section id="contact" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-4" data-aos="fade-down" data-aos-duration="1200">
+      Get in <span class="text-primary">Touch</span>
+    </h2>
+
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+
+        <div class="card shadow-lg border-0 rounded-4 p-4 glass-effect" data-aos="zoom-in" data-aos-duration="1200">
+          <form>
+            <!-- Name -->
+            <div class="mb-3" data-aos="fade-right" data-aos-delay="200">
+              <input type="text" class="form-control form-control-lg rounded-pill shadow-sm" placeholder="Your Name" required>
+            </div>
+            
+            <!-- Email -->
+            <div class="mb-3" data-aos="fade-left" data-aos-delay="400">
+              <input type="email" class="form-control form-control-lg rounded-pill shadow-sm" placeholder="Your Email" required>
+            </div>
+            
+            <!-- Message -->
+            <div class="mb-3" data-aos="fade-up" data-aos-delay="600">
+              <textarea class="form-control shadow-sm rounded-4" rows="4" placeholder="Your Message" required></textarea>
+            </div>
+            
+            <!-- Button -->
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow" data-aos="zoom-in" data-aos-delay="800">
+                Send Message 🚀
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AOS JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
+<!-- Extra Styling -->
+<style>
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 10px rgba(13, 110, 253, 0.3);
+    transition: 0.3s ease-in-out;
+  }
+  button:hover {
+    transform: scale(1.05);
+    transition: 0.3s ease-in-out;
+  }
+</style>
+
+
+    <footer class="bg-dark text-white pt-4 pb-2">
+  <div class="container">
+    <div class="row">
+      <!-- About -->
+      <div class="col-md-4 mb-3">
+        <h5 class="text-uppercase fw-bold">LearnBCA</h5>
+        <p class="small">
+          Your trusted platform to learn BCA concepts, coding, and technology
+          skills with ease.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-4 mb-3">
+        <h5 class="text-uppercase fw-bold">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white text-decoration-none footer-link">Home</a></li>
+          <li><a href="#" class="text-white text-decoration-none footer-link">Courses</a></li>
+          <li><a href="#" class="text-white text-decoration-none footer-link">About</a></li>
+          <li><a href="#" class="text-white text-decoration-none footer-link">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Social Media -->
+      <div class="col-md-4 mb-3">
+        <h5 class="text-uppercase fw-bold">Follow Us</h5>
+        <a href="#" class="text-white me-3 fs-5 social-link"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="text-white me-3 fs-5 social-link"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="text-white me-3 fs-5 social-link"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="text-white fs-5 social-link"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <hr class="bg-light" />
+
+    <div class="text-center small">
+      &copy; 2023 LearnBCA. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<!-- FontAwesome Icons -->
+<script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+
+<style>
+  .footer-link:hover {
+    color: #0dcaf0;
+    padding-left: 5px;
+    transition: all 0.3s ease;
+  }
+
+  .social-link:hover {
+    color: #0dcaf0;
+    transform: scale(1.2);
+    transition: all 0.3s ease;
+  }
+</style>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar color change on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 3D animation for hero section
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('heroCanvas'), alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+        const material = new THREE.MeshBasicMaterial({ color: 0x3498db, wireframe: true });
+        const torus = new THREE.Mesh(geometry, material);
+        scene.add(torus);
+
+        // Add a rotating cube
+        const cubeGeometry = new THREE.BoxGeometry(5, 5, 5);
+        const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xff5733, wireframe: true });
+        const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        scene.add(cube);
+
+        camera.position.z = 30;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            torus.rotation.x += 0.01;
+            torus.rotation.y += 0.005;
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Interactive card hover effect
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+            });
+        });
+    </script>
+</body>
+</html>
